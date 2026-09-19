@@ -554,22 +554,7 @@ const CONTENT = {
     <h2 class="title" style="text-align:center;margin-bottom:0">${esc(M.title)}</h2>
     ${deckHTML(M.items.map(m => `${img(m.photo, m.name)}<span class="cap">${esc(m.name)}<small>${esc(m.role)}</small></span>`), M.hint)}`, M.bridge, { mark:"p" });
 
-  /* الرحلة */
-  add("paper", C.timeline.title, `
-    <h2 class="title">${esc(C.timeline.title)}</h2>
-    <ol class="tl">${C.timeline.items.map(t => `<li><span class="date">${esc(t.date)}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join("")}</ol>`, C.timeline.bridge, { mark:"p" });
-
-  /* الإنجازات */
-  add("deep", C.achievements.title, `
-    <h2 class="title">${esc(C.achievements.title)}</h2>
-    <div class="awards">${C.achievements.items.map(a => `<div class="award"><span class="star" aria-hidden="true">★</span><div><h3>${esc(a.title)}</h3><p>${esc(a.text)}</p></div></div>`).join("")}</div>`, C.achievements.bridge, { mark:"w" });
-
-  /* قالوا عننا */
-  add("lilac", C.voices.title, `
-    <h2 class="title">${esc(C.voices.title)}</h2>
-    <div class="quotes">${C.voices.items.map(q => `<div class="quote"><span class="tape ${"lilac"} tc" style="background:rgba(255,199,44,.9)"></span><p>${esc(q.quote)}</p><span class="who">${esc(q.who)}</span></div>`).join("")}</div>`, C.voices.bridge, { mark:"p" });
-
-  /* دورك */
+    /* دورك */
   const J = C.join;
   add("brand", J.title, `
     <h2 class="big">${esc(J.title)}</h2>
