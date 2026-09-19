@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2A1D5C">
+<title>Enactus | Innovation University</title>
+<meta name="description" content="اتعرف على Enactus: طلاب بيحوّلوا أفكارهم لمشاريع بتغيّر حياة ناس حقيقية.">
+<meta property="og:title" content="Enactus | Innovation University">
+<meta property="og:description" content="قلّب الكتاب واتعرف على مشاريعنا وفريقنا.">
+<meta property="og:type" content="website">
+<!-- لو عايز صورة تظهر لما اللينك يتبعت على واتساب: ارفع الصورة وحط لينكها الكامل هنا -->
+<!-- <meta property="og:image" content="https://YOUR-SITE/photos/team.jpg"> -->
+<link rel="icon" href="__MARK_W__">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Caveat:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#4A3A85; --deep:#2A1D5C; --night:#170E3A; --ink:#241A4E;
+  --lilac:#DCD4F3; --paper:#F6F3FC; --yellow:#FFC72C; --pink:#F4C9DC; --mint:#CDE8DC; --sunny:#FFE9A0;
+  --shadow:0 10px 22px rgba(20,10,60,.30);
+  --hand:"Caveat","Aref Ruqaa",cursive;
+  --ruq:"Aref Ruqaa","Caveat",serif;
+  --body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --hinge:22px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;overflow:hidden;overscroll-behavior:none;background:var(--night);font-family:var(--body);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+h1,h2,h3,p,ol,ul{margin:0}
+img{max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit;touch-action:manipulation}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+
+/* ---------- stage + book ---------- */
+.stage{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 0%,#3A2A78,#170E3A 70%)}
+.book{position:relative;width:min(100vw,480px);height:100vh;height:100dvh;max-height:940px;overflow:hidden;perspective:2200px;perspective-origin:calc(100% - var(--hinge)) 50%;touch-action:pan-y;user-select:none;-webkit-user-select:none;background:var(--night)}
+@media(min-width:700px){.book{border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.55)}}
+
+.leaf{position:absolute;inset:0;transform-origin:calc(100% - var(--hinge)) 50%;background:var(--bg);color:var(--fg);overflow:hidden;visibility:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.leaf::after{content:"";position:absolute;inset:0;background-image:var(--grain);opacity:.28;pointer-events:none;z-index:3}
+.leaf.turning{box-shadow:-26px 0 46px rgba(12,5,40,.5)}
+.th-paper{--bg:var(--paper);--fg:var(--ink)}
+.th-lilac{--bg:var(--lilac);--fg:var(--ink)}
+.th-brand{--bg:linear-gradient(165deg,#5A48A6,#3E2E78);--fg:#fff}
+.th-deep{--bg:linear-gradient(165deg,#34247A,#1E1247);--fg:#fff}
+.th-grid{--bg:var(--paper);--fg:var(--ink);background-image:linear-gradient(rgba(74,58,133,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(74,58,133,.14) 1px,transparent 1px);background-size:26px 26px}
+
+.fold{position:absolute;inset:0;z-index:20;pointer-events:none;opacity:0;
+  background:linear-gradient(to left,rgba(14,6,45,.9),rgba(14,6,45,0) 70%),linear-gradient(to right,rgba(255,255,255,.28),rgba(255,255,255,0) 26%)}
+.veil{position:absolute;inset:0;z-index:21;pointer-events:none;opacity:0;background:#120833}
+
+.holes i,.rings i{position:absolute;display:block}
+.holes i{right:15px;width:13px;height:13px;margin-top:-6px;border-radius:50%;background:rgba(20,8,55,.4);box-shadow:inset 0 2px 3px rgba(0,0,0,.5)}
+.rings{position:absolute;inset:0;z-index:500;pointer-events:none}
+.rings i{right:3px;width:40px;height:12px;margin-top:-6px;border-radius:7px;background:linear-gradient(#fdfcff 0,#cbc5e2 45%,#7d74a8 55%,#e0dbf0 100%);box-shadow:0 3px 6px rgba(10,4,35,.5)}
+.holes{position:absolute;inset:0;z-index:1;pointer-events:none}
+
+.scroller{position:absolute;inset:0;z-index:2;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding-block:58px 104px;padding-inline-start:48px;padding-inline-end:20px;scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+.inner{min-height:100%;display:flex;flex-direction:column}
+.content{margin-block:auto;width:100%}
+.mark{position:absolute;top:calc(14px + env(safe-area-inset-top));left:16px;height:30px;z-index:5;opacity:.92;pointer-events:none}
+
+.title{font-family:var(--ruq);font-weight:700;font-size:clamp(1.9rem,9vw,2.7rem);line-height:1.5;margin-bottom:.3em}
+.lead{font-size:1.02rem;line-height:1.85}
+.hand{font-family:var(--hand);font-weight:500}
+.hint{font-family:var(--ruq);font-size:.95rem;opacity:.85}
+
+.bridge{align-self:flex-start;margin-top:22px;font-family:var(--ruq);font-size:1.15rem;line-height:1.5;padding:10px 2px;display:inline-flex;gap:10px;align-items:center;border-bottom:2px dashed currentColor}
+.bridge .arr{display:inline-block;animation:nudge 1.7s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(-8px)}}
+
+/* ---------- scrapbook parts ---------- */
+.tape{position:absolute;width:88px;height:28px;background:rgba(255,199,44,.9);z-index:4;pointer-events:none;
+  clip-path:polygon(3% 0,97% 0,100% 12%,97% 25%,100% 37%,97% 50%,100% 62%,97% 75%,100% 87%,97% 100%,3% 100%,0 87%,3% 75%,0 62%,3% 50%,0 37%,3% 25%,0 12%)}
+.tape.lilac{background:rgba(220,212,243,.92)}
+.tape.pink{background:rgba(244,201,220,.92)}
+.tape.tc{top:-13px;left:50%;margin-left:-44px;transform:rotate(-3deg)}
+.tape.tl{top:-10px;left:-18px;transform:rotate(-36deg)}
+.tape.tr{top:-10px;right:-18px;transform:rotate(36deg)}
+
+.stamp{--paper:#fff;position:relative;padding:15px;filter:drop-shadow(0 8px 10px rgba(12,5,40,.35));
+  background:
+   radial-gradient(circle at 50% 0,#0000 4px,var(--paper) 4.5px) top/14px 7px repeat-x,
+   radial-gradient(circle at 50% 100%,#0000 4px,var(--paper) 4.5px) bottom/14px 7px repeat-x,
+   radial-gradient(circle at 0 50%,#0000 4px,var(--paper) 4.5px) left/7px 14px repeat-y,
+   radial-gradient(circle at 100% 50%,#0000 4px,var(--paper) 4.5px) right/7px 14px repeat-y,
+   linear-gradient(var(--paper),var(--paper)) center/calc(100% - 14px) calc(100% - 14px) no-repeat}
+.stamp>img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#e4dcf6}
+
+.polaroid{background:#fff;color:var(--ink);padding:11px 11px 50px;box-shadow:var(--shadow);position:relative}
+.polaroid>img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#e4dcf6}
+.cap{position:absolute;bottom:9px;inset-inline:9px;text-align:center;font-family:var(--ruq);font-size:1.08rem;line-height:1.3}
+.note{position:relative;background:var(--paper);color:var(--ink);padding:24px 20px 20px;box-shadow:var(--shadow)}
+.note .lined{line-height:32px;background:repeating-linear-gradient(transparent 0 31px,rgba(74,58,133,.18) 31px 32px)}
+.sticky{position:relative;padding:20px 14px 14px;background:var(--sunny);color:var(--ink);box-shadow:var(--shadow)}
+.sticky::before{content:"";position:absolute;top:-8px;left:50%;width:52px;height:15px;margin-left:-26px;background:rgba(255,255,255,.6)}
+.sticky h3{font-family:var(--ruq);font-size:1.12rem;line-height:1.5}
+.sticky p{font-size:.92rem;line-height:1.6}
+
+/* ---------- cover ---------- */
+.cover-leaf{--bg:linear-gradient(160deg,#5B49A8 0%,#46367F 55%,#2E2262 100%);--fg:#fff;background:var(--bg)}
+.cover-leaf::before{content:"";position:absolute;inset:14px 34px 14px 12px;border:2px dashed rgba(255,255,255,.32);border-radius:10px;z-index:4;pointer-events:none}
+.cover-in{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:calc(24px + env(safe-area-inset-top)) 44px calc(24px + env(safe-area-inset-bottom)) 22px;gap:clamp(6px,1.5svh,16px)}
+.cover-logo{height:clamp(56px,10svh,84px)}
+.cover-title{font-family:var(--hand);font-weight:700;font-size:min(23vw,12svh,6.6rem);line-height:.95;margin:0}
+.squig{display:block;width:150px;height:14px;margin-top:-4px}
+.cover-sub{font-size:clamp(.98rem,4vw,1.15rem);font-weight:500;max-width:19em;line-height:1.7}
+.cover-stamp{width:min(58vw,29svh*1.35,250px);transform:rotate(-2deg);animation:paste .9s cubic-bezier(.2,1.4,.4,1) .3s both}
+@keyframes paste{from{transform:translateY(-46px) scale(1.15) rotate(7deg);opacity:0}to{transform:rotate(-2deg);opacity:1}}
+.cover-event{font-size:1.6rem;line-height:1.2}
+.open{display:inline-flex;gap:10px;align-items:center;background:var(--yellow);color:var(--ink);font-weight:600;font-size:1.08rem;padding:.65em 1.6em;border-radius:999px;box-shadow:0 6px 0 #C79600,0 12px 20px rgba(0,0,0,.3)}
+.open:active{transform:translateY(4px);box-shadow:0 2px 0 #C79600}
+.swipe-hint{font-size:.85rem;opacity:.8}
+
+/* ---------- hook ---------- */
+.big-q{font-family:var(--ruq);font-weight:700;font-size:clamp(2rem,9.5vw,2.9rem);line-height:1.6}
+.hook-kicker{font-size:1.9rem;color:var(--yellow);margin-bottom:.4em}
+.qmark{position:absolute;inset-inline-end:-6px;bottom:-40px;font-family:var(--ruq);font-size:15rem;line-height:1;color:rgba(255,255,255,.07);pointer-events:none}
+
+/* ---------- about ---------- */
+.about-photo{width:66%;margin:0 auto 18px;transform:rotate(-3deg)}
+.about-note{transform:rotate(1.2deg)}
+.equation{font-family:var(--hand);font-size:1.4rem;color:var(--brand);margin-top:10px;line-height:1.3}
+.values{display:flex;gap:12px;margin-top:22px}
+.values .sticky{flex:1;padding:16px 8px 12px;text-align:center}
+.values .sticky h3{font-size:.98rem}
+.values .sticky:nth-child(1){transform:rotate(-3deg)}
+.values .sticky:nth-child(2){transform:rotate(2deg);background:var(--pink)}
+.values .sticky:nth-child(3){transform:rotate(-1.5deg);background:var(--mint)}
+
+/* ---------- how ---------- */
+.steps{list-style:none;padding:0;margin-top:20px}
+.steps li{position:relative;display:flex;gap:16px;align-items:flex-start;padding-bottom:22px}
+.steps li:not(:last-child)::before{content:"";position:absolute;inset-inline-start:21px;top:44px;bottom:2px;border-inline-start:3px dashed rgba(255,255,255,.4)}
+.steps .n{flex:none;width:44px;height:44px;border-radius:50%;background:var(--yellow);color:var(--ink);font-family:var(--hand);font-weight:700;font-size:1.7rem;line-height:44px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.steps h3{font-family:var(--ruq);font-size:1.25rem;line-height:1.5}
+.steps p{font-size:.95rem;opacity:.9;line-height:1.6}
+
+/* ---------- projects overview ---------- */
+.pin-list{display:grid;gap:22px;margin-top:22px}
+.pin{position:relative;display:block;width:100%;background:var(--paper);color:var(--ink);padding:24px 20px 18px;box-shadow:var(--shadow)}
+.pin:nth-child(odd){transform:rotate(-1.4deg)}.pin:nth-child(even){transform:rotate(1.4deg)}
+.pin h3{font-family:var(--ruq);font-size:1.35rem;line-height:1.5}
+.pin p{font-size:.92rem;line-height:1.6;margin-top:2px}
+.pin .go{display:inline-block;margin-top:8px;font-weight:600;color:var(--brand)}
+.chip{position:relative;display:inline-block;background:var(--yellow);color:var(--ink);font-weight:600;font-size:.9rem;padding:2px 24px;margin-bottom:10px;transform:rotate(-2deg);
+  clip-path:polygon(3% 0,97% 0,100% 15%,97% 30%,100% 45%,97% 60%,100% 75%,97% 100%,3% 100%,0 75%,3% 60%,0 45%,3% 30%,0 15%)}
+
+/* ---------- deck (tap to cycle) ---------- */
+.deck{width:min(62vw,250px);margin:18px auto 6px}
+.deck-stage{position:relative;width:100%;aspect-ratio:5/6}
+.dcard{position:absolute;inset:0;display:block;width:100%;transition:transform .45s cubic-bezier(.3,1.1,.4,1),opacity .3s;will-change:transform}
+.dcard .polaroid{height:100%;display:flex;flex-direction:column;padding:10px 10px 0}
+.dcard .polaroid>img{flex:1;min-height:0;aspect-ratio:auto;height:auto}
+.dcard .cap{position:static;height:66px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:1.12rem}
+.dcard .cap small{font-family:var(--body);font-size:.8rem;opacity:.75;font-weight:500}
+.deck-meta{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:.88rem}
+.deck-count{font-family:var(--hand);font-size:1.3rem;direction:ltr}
+
+.proj-text{margin-top:18px}
+.impact{display:flex;gap:14px;justify-content:center;margin-top:20px}
+.badge{width:112px;height:112px;border-radius:50%;background:var(--yellow);color:var(--ink);display:grid;place-content:center;text-align:center;box-shadow:var(--shadow);outline:2px dashed rgba(36,26,78,.5);outline-offset:-8px;padding:8px}
+.badge:nth-child(odd){transform:rotate(-7deg)}.badge:nth-child(even){transform:rotate(6deg);background:#fff}
+.badge .num,.ticket .num{font-family:var(--hand);font-weight:700;line-height:1;unicode-bidi:isolate;display:block}
+.badge .num{font-size:2.4rem}
+.badge .lbl{font-size:.8rem;font-weight:600;line-height:1.3}
+
+/* ---------- stats ---------- */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:20px}
+.ticket{color:var(--ink);text-align:center;padding:22px 8px 16px}
+.ticket.y{--paper:var(--yellow)}
+.ticket:nth-child(odd){transform:rotate(-2deg)}.ticket:nth-child(even){transform:rotate(1.8deg)}
+.ticket .num{font-size:clamp(2.8rem,13vw,3.8rem)}
+.ticket .lbl{display:block;font-weight:600;font-size:.92rem;margin-top:4px;line-height:1.4}
+
+/* ---------- tech ---------- */
+.tech-list{display:grid;gap:22px;margin-top:22px}
+.tech-list .sticky{display:flex;gap:14px;align-items:center;padding:20px 16px 16px}
+.tech-list .ic{font-size:1.9rem;line-height:1}
+.tech-list .sticky:nth-child(3n+1){transform:rotate(-1.6deg)}
+.tech-list .sticky:nth-child(3n+2){transform:rotate(1.4deg);background:var(--pink)}
+.tech-list .sticky:nth-child(3n){transform:rotate(-.8deg);background:var(--mint)}
+.made-by{margin-top:22px;font-family:var(--hand);font-size:1.45rem;color:var(--brand);line-height:1.3}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;list-style:none;margin:22px 0 0;padding:0;padding-inline-start:36px}
+.tl::before{content:"";position:absolute;inset-inline-start:11px;top:6px;bottom:6px;border-inline-start:3px dashed var(--brand)}
+.tl li{position:relative;margin-bottom:24px}
+.tl li::before{content:"";position:absolute;inset-inline-start:-31px;top:8px;width:16px;height:16px;border-radius:50%;background:var(--yellow);border:3px solid var(--ink)}
+.tl .date{font-family:var(--hand);font-weight:700;font-size:1.4rem;color:var(--brand);line-height:1.2;direction:ltr;display:inline-block;unicode-bidi:isolate}
+.tl h3{font-family:var(--ruq);font-size:1.25rem;line-height:1.5}
+.tl p{font-size:.95rem;line-height:1.6}
+
+/* ---------- awards / voices / join ---------- */
+.awards{display:grid;gap:16px;margin-top:20px}
+.award{display:flex;gap:14px;align-items:center;background:var(--paper);color:var(--ink);padding:14px 16px;box-shadow:var(--shadow)}
+.award:nth-child(odd){transform:rotate(-.8deg)}.award:nth-child(even){transform:rotate(.8deg)}
+.award .star{flex:none;width:46px;height:46px;border-radius:50%;background:var(--yellow);display:grid;place-content:center;font-size:1.3rem;outline:2px dashed rgba(36,26,78,.5);outline-offset:-5px}
+.award h3{font-family:var(--ruq);font-size:1.12rem;line-height:1.5}
+.award p{font-size:.9rem;line-height:1.55}
+.quotes{display:grid;gap:26px;margin-top:22px}
+.quote{position:relative;background:var(--paper);color:var(--ink);padding:26px 20px 16px;box-shadow:var(--shadow)}
+.quote:nth-child(odd){transform:rotate(-1.4deg)}.quote:nth-child(even){transform:rotate(1.2deg)}
+.quote::before{content:"”";position:absolute;top:-4px;inset-inline-start:14px;font-family:Georgia,serif;font-size:4.4rem;line-height:1;color:var(--brand)}
+.quote p{font-family:var(--ruq);font-size:1.15rem;line-height:1.8}
+.quote .who{display:block;margin-top:8px;font-size:.85rem;font-weight:600;color:var(--brand)}
+.perks{display:grid;gap:12px;margin:20px 0 22px}
+.perk{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.12);border:2px dashed rgba(255,255,255,.35);padding:10px 14px;border-radius:14px}
+.perk .ic{font-size:1.6rem;line-height:1}
+.perk b{font-family:var(--ruq);font-size:1.1rem;font-weight:700}
+.perk span{display:block;font-size:.88rem;opacity:.9;line-height:1.5}
+.btns{display:grid;gap:14px}
+.btn{display:block;text-align:center;background:var(--yellow);color:var(--ink);padding:.75em 1.2em;font-weight:600;font-size:1.05rem;text-decoration:none;border-radius:14px;box-shadow:0 5px 0 #C79600}
+.btn.alt{background:#fff;box-shadow:0 5px 0 #B9AEE0}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #C79600}
+.big{font-family:var(--ruq);font-weight:700;font-size:clamp(2.3rem,10.5vw,3.3rem);line-height:1.5}
+
+/* ---------- end ---------- */
+.end{text-align:center}
+.end .logo{height:96px;margin:0 auto 8px;display:block}
+.end .credit{margin-top:22px;font-family:var(--hand);font-size:1.4rem;line-height:1.4;opacity:.9}
+
+/* ---------- fixed UI ---------- */
+.progress{position:absolute;top:0;inset-inline:0;height:4px;z-index:600;background:rgba(255,255,255,.18)}
+.progress i{display:block;height:100%;width:0;background:var(--yellow)}
+.nav{position:absolute;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:600;display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px;background:rgba(246,243,252,.97);box-shadow:0 8px 26px rgba(10,4,35,.45);transition:opacity .3s}
+.nav button{min-width:50px;height:50px;border-radius:999px;font-weight:600;color:var(--brand);font-size:1.25rem;text-align:center}
+.nav #count{min-width:88px;font-family:var(--hand);font-size:1.4rem;direction:ltr}
+.nav #next{background:var(--brand);color:#fff}
+.nav button[disabled]{opacity:.35}
+.book[data-i="0"] .nav{opacity:0;pointer-events:none}
+.toast{position:absolute;bottom:86px;left:50%;transform:translateX(-50%);z-index:700;background:var(--night);color:#fff;padding:8px 18px;border-radius:999px;font-size:.92rem;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.toast[hidden],.sheet[hidden],.demo[hidden]{display:none}
+.demo{position:absolute;top:4px;left:50%;transform:translateX(-50%);z-index:650;background:var(--night);color:var(--yellow);font-size:.7rem;font-weight:600;padding:1px 12px 2px;border-radius:0 0 8px 8px;white-space:nowrap}
+.sheet{position:absolute;inset:0;z-index:800;background:rgba(23,14,58,.72);display:flex;align-items:flex-end}
+.sheet-panel{width:100%;max-height:78%;overflow:auto;background:var(--paper);color:var(--ink);border-radius:22px 22px 0 0;padding:16px 14px calc(18px + env(safe-area-inset-bottom))}
+.sheet h2{font-family:var(--ruq);font-size:1.4rem;padding:2px 8px 10px}
+.sheet li{list-style:none}
+.sheet ol{padding:0}
+.sheet button{display:flex;gap:14px;align-items:center;width:100%;padding:12px 10px;border-radius:12px;font-size:1.02rem;min-height:48px}
+.sheet button b{font-family:var(--hand);font-size:1.3rem;color:var(--brand);width:2.2ch;direction:ltr}
+.sheet button[aria-current="true"]{background:var(--lilac);font-weight:600}
+
+@media(prefers-reduced-motion:reduce){
+  .cover-stamp,.bridge .arr{animation:none!important}
+  .dcard{transition:none!important}
+}
+</style>
+</head>
+<body>
+<noscript><p style="padding:24px;color:#fff">فعّل JavaScript عشان تشوف الصفحة.</p></noscript>
+<div class="stage">
+  <div class="book" id="book" data-i="0">
+    <div class="rings" id="rings" aria-hidden="true"></div>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <div class="demo" id="demo" hidden>نسخة تجريبية</div>
+    <nav class="nav" aria-label="التنقل بين الصفحات">
+      <button id="prev" type="button" aria-label="الصفحة السابقة">→</button>
+      <button id="count" type="button" aria-label="فهرس الصفحات">1 / 1</button>
+      <button id="next" type="button" aria-label="الصفحة التالية">←</button>
+    </nav>
+    <div class="toast" id="toast" hidden></div>
+    <div class="sheet" id="sheet" hidden><div class="sheet-panel"><h2>فهرس الكتاب</h2><ol id="toc"></ol></div></div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   المحتوى كله هنا. عدّل النصوص والأرقام ومسارات الصور بس.
+   الصور بتتحط في فولدر photos جنب الملف. الصورة الناقصة بتظهر مكانها صورة بديلة.
+   لما تخلّص: خلّي demo: false
+   ===================================================================== */
+const CONTENT = {
+  demo: true,
+
+  team: {
+    name: "Enactus",
+    university: "Innovation University",
+    tagline: "طلاب بيحوّلوا أفكارهم لمشاريع بتغيّر حياة ناس حقيقية",
+    event: "Open Day 2026",
+    cover: "photos/team.jpg"
+  },
+
+  hook: {
+    kicker: "بدأت بسؤال",
+    text: "إيه لو أفكارنا في الجامعة تغيّر حياة ناس بجد؟",
+    bridge: "وده بالظبط اللي بنعمله"
+  },
+
+  about: {
+    title: "مين إحنا؟",
+    text: "Enactus منظمة عالمية غير ربحية بيقودها طلاب الجامعات. بنحوّل أفكارنا لمشاريع حقيقية بتحل مشاكل في المجتمع وبتوفّر فرص شغل ودخل للناس.",
+    equation: "Enactus = Entrepreneurial + Action + Us",
+    photo: "photos/about.jpg",
+    photoCaption: "فريقنا",
+    values: ["ريادة أعمال", "أثر اجتماعي", "شغل جماعي"],
+    bridge: "طب بنعمل ده إزاي؟"
+  },
+
+  how: {
+    title: "إزاي بنشتغل",
+    steps: [
+      { t: "نلاقي المشكلة", d: "بننزل للناس ونسمع منهم بنفسنا" },
+      { t: "نصمّم الحل",     d: "فكرة عملية تقدر تكمّل لوحدها" },
+      { t: "ننفّذ",          d: "بنجرّبها على أرض الواقع مش على الورق" },
+      { t: "نقيس الأثر",     d: "أرقام تثبت إن الحل نجح فعلًا" }
+    ],
+    bridge: "شوف ده حصل إزاي في مشاريعنا"
+  },
+
+  projectsIntro: {
+    title: "مشاريعنا",
+    text: "اختار مشروع وادخله",
+    open: "ادخل المشروع",
+    bridge: "ابدأ من أول مشروع"
+  },
+
+  projects: [
+    {
+      title: "اسم المشروع الأول",
+      tag: "تمكين اقتصادي",
+      blurb: "سطر واحد يعرّف المشروع",
+      text: "اكتب هنا فكرة المشروع في سطرين: إيه المشكلة اللي شفناها، وإحنا حلّيناها إزاي، ومين المستفيدين.",
+      photos: ["photos/p1-1.jpg", "photos/p1-2.jpg", "photos/p1-3.jpg"],
+      impact: [ { n: 120, suffix: "+", label: "مستفيد" }, { n: 8, suffix: "", label: "شهور شغل" } ],
+      bridge: "والمشروع اللي بعده"
+    },
+    {
+      title: "اسم المشروع التاني",
+      tag: "تنمية مستدامة",
+      blurb: "سطر واحد يعرّف المشروع",
+      text: "اكتب هنا وصف المشروع التاني بنفس الطريقة. خلّيه قصير وواضح، والصور هتحكي الباقي.",
+      photos: ["photos/p2-1.jpg", "photos/p2-2.jpg", "photos/p2-3.jpg"],
+      impact: [ { n: 60, suffix: "+", label: "أسرة" }, { n: 5, suffix: "", label: "شركاء" } ],
+      bridge: "وأثر ده كله بالأرقام"
+    }
+  ],
+
+  stats: {
+    title: "أثرنا بالأرقام",
+    items: [
+      { n: 3,   suffix: "",  label: "مشاريع شغّالة" },
+      { n: 40,  suffix: "+", label: "عضو في الفريق" },
+      { n: 500, suffix: "+", label: "مستفيد من مشاريعنا" },
+      { n: 12,  suffix: "",  label: "شهر من الشغل" }
+    ],
+    bridge: "ومين اللي بيبني الأدوات ورا ده؟"
+  },
+
+  tech: {
+    title: "فريق التقنية",
+    text: "الناس اللي ورا الشاشة. بنبني الأدوات اللي بتخلّي شغل Enactus أسرع وأوضح. والكتاب اللي في إيدك ده اتعمل بإيدينا.",
+    items: [
+      { icon: "💻", name: "الكتاب ده",         desc: "اكتب هنا سطر عن الحاجة دي." },
+      { icon: "📡", name: "مشروع تقني تاني",   desc: "اكتب هنا سطر عن الحاجة دي." },
+      { icon: "📊", name: "أداة تانية",        desc: "اكتب هنا سطر عن الحاجة دي." }
+    ],
+    madeBy: "اتصمم بإيد فريق التقنية",
+    bridge: "وتعالى تقابل باقي الفريق"
+  },
+
+  members: {
+    title: "الناس اللي ورا الحكاية",
+    hint: "اضغط على الصورة عشان تشوف اللي بعدها",
+    items: [
+      { name: "اسم العضو", role: "رئيس الفريق",  photo: "photos/m1.jpg" },
+      { name: "اسم العضو", role: "فريق التقنية",  photo: "photos/m2.jpg" },
+      { name: "اسم العضو", role: "فريق المشاريع", photo: "photos/m3.jpg" },
+      { name: "اسم العضو", role: "فريق التسويق",  photo: "photos/m4.jpg" },
+      { name: "اسم العضو", role: "فريق العلاقات", photo: "photos/m5.jpg" },
+      { name: "اسم العضو", role: "فريق الموارد",  photo: "photos/m6.jpg" }
+    ],
+    bridge: "وإحنا وصلنا هنا إزاي؟"
+  },
+
+  timeline: {
+    title: "رحلتنا",
+    items: [
+      { date: "MM / YYYY", title: "بداية الرحلة",     text: "اكتب هنا إيه اللي حصل في اللحظة دي." },
+      { date: "MM / YYYY", title: "أول مشروع",         text: "اكتب هنا إيه اللي حصل في اللحظة دي." },
+      { date: "MM / YYYY", title: "أول نتيجة حقيقية",  text: "اكتب هنا إيه اللي حصل في اللحظة دي." },
+      { date: "MM / YYYY", title: "النهارده",          text: "اكتب هنا إيه اللي حصل في اللحظة دي." }
+    ],
+    bridge: "ودي اللحظات اللي بنفتخر بيها"
+  },
+
+  achievements: {
+    title: "لحظات نفتخر بيها",
+    items: [
+      { title: "اكتب إنجاز أو جايزة",   text: "سطر يوضّح إيه اللي حصل ومتى." },
+      { title: "اكتب شراكة أو مشاركة", text: "سطر يوضّح إيه اللي حصل ومتى." },
+      { title: "اكتب لحظة مميزة",       text: "سطر يوضّح إيه اللي حصل ومتى." }
+    ],
+    bridge: "ومش إحنا بس اللي بنقول كده"
+  },
+
+  voices: {
+    title: "قالوا عننا",
+    items: [
+      { quote: "اكتب هنا كلمة حقيقية من مستفيد أو شريك أو دكتور.", who: "الاسم، الصفة" },
+      { quote: "اكتب هنا كلمة تانية بنفس الطريقة.",               who: "الاسم، الصفة" }
+    ],
+    bridge: "طب ودورك إنت إيه؟"
+  },
+
+  join: {
+    title: "دورك دلوقتي",
+    text: "التسجيل في Enactus بيفتح كل سنة. لو الحكاية عجبتك، كمّلها معانا.",
+    perks: [
+      { icon: "🎓", t: "مهارات حقيقية", d: "تتعلم بالتطبيق مش بالنظري" },
+      { icon: "🤝", t: "ناس تشبهك",     d: "فريق بيشاركك الشغف" },
+      { icon: "🌍", t: "أثر تشوفه",      d: "مشاريع بتغيّر حياة ناس" }
+    ],
+    buttons: [
+      { label: "سجّل معانا", url: "#", primary: true },
+      { label: "Instagram",   url: "#" },
+      { label: "Facebook",    url: "#" }
+    ],
+    bridge: "كلمة أخيرة"
+  },
+
+  end: {
+    title: "شكرًا إنك قلّبت معانا",
+    text: "الحكاية لسه بتتكتب، وممكن تكون إنت الصفحة الجاية.",
+    share: "شارك الكتاب مع صحابك",
+    restart: "ارجع للبداية"
+  }
+};
+/* ===================== نهاية المحتوى ===================== */
+
+(function(){
+  const C = CONTENT;
+  const LOGO_W = "__LOGO_W__", LOGO_P = "__LOGO_P__", MARK_W = "__MARK_W__", MARK_P = "__MARK_P__";
+  const $ = (s, r) => (r || document).querySelector(s);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  window.PH = function(){
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450" viewBox="0 0 600 450"><rect width="600" height="450" fill="#E4DCF6"/><g fill="none" stroke="#9E90CF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="230" y="160" width="140" height="105" rx="12"/><circle cx="300" cy="212" r="26"/><path d="M262 160l10-18h56l10 18"/></g><text x="300" y="322" text-anchor="middle" font-family="sans-serif" font-size="26" fill="#7B6CB0">ضع الصورة هنا</text></svg>';
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  };
+  const img = (src, alt, eager) => `<img src="${src ? esc(src) : PH()}" alt="${esc(alt || "")}" ${eager ? 'loading="eager"' : 'loading="lazy"'} decoding="async" draggable="false" onerror="this.onerror=null;this.src=PH()">`;
+  const num = (n, suffix) => `<span class="num" dir="ltr" data-to="${Number(n) || 0}" data-suffix="${esc(suffix || "")}">${Number(n) || 0}${esc(suffix || "")}</span>`;
+
+  const grain = "<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .15  0 0 0 0 .1  0 0 0 0 .3  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>";
+  document.documentElement.style.setProperty("--grain", 'url("data:image/svg+xml,' + encodeURIComponent(grain) + '")');
+  document.title = C.team.name + " | " + C.team.university;
+
+  /* ---------- الصفحات ---------- */
+  const pages = [];
+  const bridge = t => t ? `<button class="bridge" type="button" data-next>${esc(t)}<span class="arr" aria-hidden="true">←</span></button>` : "";
+  const dark = th => th === "brand" || th === "deep";
+  const add = (theme, title, content, br, extra) => pages.push(Object.assign({ theme, title, content, br }, extra || {}));
+
+  /* 1 الغلاف */
+  pages.push({ cover:true, title:"الغلاف", theme:"brand", content:`
+    <div class="cover-in">
+      <img class="cover-logo" src="${LOGO_W}" alt="${esc(C.team.university)}">
+      <h1 class="cover-title">${esc(C.team.name)}</h1>
+      <svg class="squig" viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9 C 25 1, 45 17, 70 9 S 115 1, 140 9 S 185 17, 210 9 S 255 1, 298 9" fill="none" stroke="#FFC72C" stroke-width="6" stroke-linecap="round"/></svg>
+      <p class="cover-sub">${esc(C.team.tagline)}</p>
+      <div class="stamp cover-stamp"><span class="tape tl"></span><span class="tape lilac tr"></span>${img(C.team.cover, C.team.name, true)}</div>
+      <p class="hand cover-event">${esc(C.team.event)}</p>
+      <button class="open" type="button" data-next>افتح الحكاية <span aria-hidden="true">←</span></button>
+      <p class="swipe-hint">أو اسحب الصفحة ناحية اليمين</p>
+    </div>` });
+
+  /* 2 السؤال */
+  add("deep", "السؤال", `
+    <p class="hand hook-kicker">${esc(C.hook.kicker)}</p>
+    <h2 class="big-q">${esc(C.hook.text)}</h2>
+    <span class="qmark" aria-hidden="true">؟</span>`, C.hook.bridge, { mark:"w" });
+
+  /* 3 مين إحنا */
+  const A = C.about;
+  add("paper", A.title, `
+    <div class="polaroid about-photo"><span class="tape tc"></span>${img(A.photo, A.photoCaption)}<span class="cap">${esc(A.photoCaption)}</span></div>
+    <div class="note about-note"><span class="tape lilac tl"></span>
+      <h2 class="title" style="font-size:clamp(1.8rem,8vw,2.4rem);margin-bottom:.1em">${esc(A.title)}</h2>
+      <p class="lined">${esc(A.text)}</p>
+      <p class="equation" dir="ltr">${esc(A.equation)}</p>
+    </div>
+    <div class="values">${A.values.map(v => `<div class="sticky"><h3>${esc(v)}</h3></div>`).join("")}</div>`, A.bridge, { mark:"p" });
+
+  /* 4 إزاي بنشتغل */
+  add("brand", C.how.title, `
+    <h2 class="title">${esc(C.how.title)}</h2>
+    <ol class="steps">${C.how.steps.map((s, i) => `<li><span class="n">${i + 1}</span><div><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p></div></li>`).join("")}</ol>`, C.how.bridge, { mark:"w" });
+
+  /* 5 مشاريعنا */
+  const projStart = pages.length + 1;
+  add("lilac", C.projectsIntro.title, `
+    <h2 class="title">${esc(C.projectsIntro.title)}</h2>
+    <p class="lead">${esc(C.projectsIntro.text)}</p>
+    <div class="pin-list">${C.projects.map((p, i) => `
+      <button class="pin" type="button" data-goto="${projStart + i}"><span class="tape ${i % 2 ? "lilac" : ""} tc"></span>
+        <span class="chip">${esc(p.tag)}</span><h3>${esc(p.title)}</h3><p>${esc(p.blurb)}</p><span class="go">${esc(C.projectsIntro.open)} ←</span>
+      </button>`).join("")}</div>`, C.projectsIntro.bridge, { mark:"p" });
+
+  /* 6+ كل مشروع */
+  const deckHTML = (cards, hint) => `
+    <div class="deck" data-deck>
+      <div class="deck-stage">${cards.map(c => `<button class="dcard" type="button" aria-label="الصورة التالية"><span class="polaroid">${c}</span></button>`).join("")}</div>
+      <div class="deck-meta"><span class="hint">${esc(hint)}</span><span class="deck-count">1 / ${cards.length}</span></div>
+    </div>`;
+  C.projects.forEach((p, i) => {
+    add(i % 2 ? "paper" : "deep", p.title, `
+      <span class="chip">${esc(p.tag)}</span>
+      <h2 class="title" style="margin-bottom:0">${esc(p.title)}</h2>
+      ${deckHTML(p.photos.map((ph, k) => `${img(ph, p.title + " " + (k + 1))}<span class="cap"></span>`), "اضغط عشان تقلّب الصور")}
+      <div class="note proj-text"><p>${esc(p.text)}</p></div>
+      <div class="impact">${p.impact.map(m => `<div class="badge">${num(m.n, m.suffix)}<span class="lbl">${esc(m.label)}</span></div>`).join("")}</div>`,
+      p.bridge, { mark: i % 2 ? "p" : "w" });
+  });
+
+  /* الأرقام */
+  add("brand", C.stats.title, `
+    <h2 class="title" style="text-align:center">${esc(C.stats.title)}</h2>
+    <div class="stat-grid">${C.stats.items.map((s, i) => `<div class="stamp ticket${i % 2 ? " y" : ""}">${num(s.n, s.suffix)}<span class="lbl">${esc(s.label)}</span></div>`).join("")}</div>`, C.stats.bridge, { mark:"w" });
+
+  /* التقنية */
+  const T = C.tech;
+  add("grid", T.title, `
+    <h2 class="title">${esc(T.title)}</h2>
+    <p class="lead">${esc(T.text)}</p>
+    <div class="tech-list">${T.items.map(t => `<div class="sticky"><span class="ic" aria-hidden="true">${t.icon}</span><div><h3>${esc(t.name)}</h3><p>${esc(t.desc)}</p></div></div>`).join("")}</div>
+    <p class="made-by">${esc(T.madeBy)}</p>`, T.bridge, { mark:"p" });
+
+  /* الأعضاء */
+  const M = C.members;
+  add("lilac", M.title, `
+    <h2 class="title" style="text-align:center;margin-bottom:0">${esc(M.title)}</h2>
+    ${deckHTML(M.items.map(m => `${img(m.photo, m.name)}<span class="cap">${esc(m.name)}<small>${esc(m.role)}</small></span>`), M.hint)}`, M.bridge, { mark:"p" });
+
+  /* الرحلة */
+  add("paper", C.timeline.title, `
+    <h2 class="title">${esc(C.timeline.title)}</h2>
+    <ol class="tl">${C.timeline.items.map(t => `<li><span class="date">${esc(t.date)}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join("")}</ol>`, C.timeline.bridge, { mark:"p" });
+
+  /* الإنجازات */
+  add("deep", C.achievements.title, `
+    <h2 class="title">${esc(C.achievements.title)}</h2>
+    <div class="awards">${C.achievements.items.map(a => `<div class="award"><span class="star" aria-hidden="true">★</span><div><h3>${esc(a.title)}</h3><p>${esc(a.text)}</p></div></div>`).join("")}</div>`, C.achievements.bridge, { mark:"w" });
+
+  /* قالوا عننا */
+  add("lilac", C.voices.title, `
+    <h2 class="title">${esc(C.voices.title)}</h2>
+    <div class="quotes">${C.voices.items.map(q => `<div class="quote"><span class="tape ${"lilac"} tc" style="background:rgba(255,199,44,.9)"></span><p>${esc(q.quote)}</p><span class="who">${esc(q.who)}</span></div>`).join("")}</div>`, C.voices.bridge, { mark:"p" });
+
+  /* دورك */
+  const J = C.join;
+  add("brand", J.title, `
+    <h2 class="big">${esc(J.title)}</h2>
+    <p class="lead">${esc(J.text)}</p>
+    <div class="perks">${J.perks.map(p => `<div class="perk"><span class="ic" aria-hidden="true">${p.icon}</span><div><b>${esc(p.t)}</b><span>${esc(p.d)}</span></div></div>`).join("")}</div>
+    <div class="btns">${J.buttons.map(b => `<a class="btn${b.primary ? "" : " alt"}" href="${esc(b.url)}" target="_blank" rel="noopener">${esc(b.label)}</a>`).join("")}</div>`, J.bridge, { mark:"w" });
+
+  /* الخاتمة */
+  const E = C.end;
+  add("deep", "شكرًا", `
+    <div class="end">
+      <img class="logo" src="${LOGO_W}" alt="${esc(C.team.university)}">
+      <h2 class="big">${esc(E.title)}</h2>
+      <p class="lead" style="margin:.4em auto 1.6em;max-width:20em">${esc(E.text)}</p>
+      <div class="btns">
+        <button class="btn" type="button" id="share">${esc(E.share)}</button>
+        <button class="btn alt" type="button" data-goto="0">${esc(E.restart)}</button>
+      </div>
+      <p class="credit" dir="ltr">${esc(C.team.name)} ${esc(C.team.university)}</p>
+      <p class="credit" style="font-size:1.2rem;margin-top:6px">${esc(C.tech.madeBy)}</p>
+    </div>`, "", {});
+
+  /* ---------- بناء الكتاب ---------- */
+  const book = $("#book"), N = pages.length;
+  const ringTops = Array.from({ length: 7 }, (_, i) => (6 + i * (88 / 6)).toFixed(2));
+  const holesHTML = `<div class="holes" aria-hidden="true">${ringTops.map(t => `<i style="top:${t}%"></i>`).join("")}</div>`;
+  const frag = document.createDocumentFragment();
+  pages.forEach((p, i) => {
+    const el = document.createElement("section");
+    el.className = "leaf " + (p.cover ? "cover-leaf" : "th-" + p.theme);
+    el.style.zIndex = N - i;
+    el.setAttribute("aria-label", p.title);
+    const markSrc = p.mark === "w" ? MARK_W : p.mark === "p" ? MARK_P : "";
+    el.innerHTML = holesHTML +
+      (markSrc ? `<img class="mark" src="${markSrc}" alt="">` : "") +
+      (p.cover ? p.content
+        : `<div class="scroller"><div class="inner"><div class="content">${p.content}</div>${bridge(p.br)}</div></div>`) +
+      `<div class="fold"></div><div class="veil"></div>`;
+    frag.appendChild(el);
+  });
+  book.insertBefore(frag, book.firstChild);
+  $("#rings").innerHTML = ringTops.map(t => `<i style="top:${t}%"></i>`).join("");
+  const leaves = [...book.querySelectorAll(".leaf")];
+  leaves.forEach(l => { l.foldEl = $(".fold", l); l.veilEl = $(".veil", l); });
+
+  if (C.demo) $("#demo").hidden = false;
+  $("#toc").innerHTML = pages.map((p, i) => `<li><button type="button" data-goto="${i}"><b>${i + 1}</b><span>${esc(p.title)}</span></button></li>`).join("");
+
+  /* ---------- محرك التقليب 3D ---------- */
+  const easing = "cubic-bezier(.3,.65,.25,1)";
+  let idx = 0, busy = false;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const nextBtn = $("#next"), prevBtn = $("#prev"), countBtn = $("#count"), bar = $("#bar");
+
+  function pose(T, deg, anim){
+    const t = leaves[T], u = leaves[T + 1], k = deg / 90;
+    t.classList.add("turning");
+    t.style.visibility = "visible";
+    t.style.transition = anim ? `transform ${anim}ms ${easing}` : "none";
+    t.style.transform = `rotateY(${deg}deg)`;
+    t.foldEl.style.transition = anim ? `opacity ${anim}ms ${easing}` : "none";
+    t.foldEl.style.opacity = (Math.sin(k * Math.PI / 2) * 0.6).toFixed(3);
+    if (u) {
+      u.style.visibility = "visible";
+      u.style.transition = anim ? `transform ${anim}ms ${easing}` : "none";
+      u.style.transform = `scale(${(0.93 + 0.07 * k).toFixed(4)})`;
+      u.veilEl.style.transition = anim ? `opacity ${anim}ms ${easing}` : "none";
+      u.veilEl.style.opacity = (0.6 * (1 - k)).toFixed(3);
+    }
+  }
+
+  function settle(fromUser){
+    leaves.forEach((el, i) => {
+      el.classList.remove("turning");
+      el.style.visibility = (i === idx || i === idx + 1) ? "visible" : "hidden";
+      el.style.transition = "none";
+      el.style.transform = i < idx ? "rotateY(90deg)" : "none";
+      el.foldEl.style.transition = el.veilEl.style.transition = "none";
+      el.foldEl.style.opacity = el.veilEl.style.opacity = 0;
+      el.inert = i !== idx;
+      el.setAttribute("aria-hidden", i === idx ? "false" : "true");
+    });
+    book.dataset.i = idx;
+    countBtn.textContent = (idx + 1) + " / " + N;
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === N - 1;
+    bar.style.width = (idx / (N - 1) * 100) + "%";
+    history.replaceState(null, "", "#p" + (idx + 1));
+    $("#toc").querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-current", i === idx ? "true" : "false"));
+    countUp(leaves[idx]);
+    if (fromUser && navigator.vibrate && !reduce) navigator.vibrate(10);
+    if (idx === 1 && fromUser && !sessionStorage.getItem("hinted")) {
+      try { sessionStorage.setItem("hinted", "1"); } catch (_) {}
+      toast("اسحب ناحية اليمين لقلب الصفحة");
+    }
+  }
+
+  async function flipNext(dur){
+    if (idx >= N - 1) return;
+    const T = idx;
+    if (reduce) { idx = T + 1; settle(true); return; }
+    pose(T, 0, 0); void leaves[T].offsetWidth;
+    pose(T, 90, dur);
+    await wait(dur + 30);
+    idx = T + 1; settle(true);
+  }
+  async function flipPrev(dur){
+    if (idx <= 0) return;
+    const T = idx - 1;
+    if (reduce) { idx = T; settle(true); return; }
+    pose(T, 90, 0); void leaves[T].offsetWidth;
+    pose(T, 0, dur);
+    await wait(dur + 30);
+    idx = T; settle(true);
+  }
+  async function goTo(n){
+    n = clamp(n, 0, N - 1);
+    if (busy || n === idx) return;
+    busy = true;
+    const dist = Math.abs(n - idx), dur = dist > 1 ? clamp(2200 / dist, 90, 240) : 560;
+    while (idx < n) await flipNext(dur);
+    while (idx > n) await flipPrev(dur);
+    busy = false;
+  }
+  const step = async dir => { if (busy) return; busy = true; await (dir > 0 ? flipNext(560) : flipPrev(560)); busy = false; };
+
+  /* السحب بالإصبع: الصفحة بتتبع صباعك */
+  let g = null, suppress = false;
+  book.addEventListener("pointerdown", e => {
+    if (busy || (e.pointerType === "mouse" && e.button !== 0) || e.target.closest("#sheet")) return;
+    g = { id: e.pointerId, x: e.clientX, y: e.clientY, mode: null, T: null, p: 0, lx: e.clientX, lt: performance.now(), v: 0 };
+  });
+  book.addEventListener("pointermove", e => {
+    if (!g || e.pointerId !== g.id) return;
+    const dx = e.clientX - g.x, dy = e.clientY - g.y;
+    if (!g.mode) {
+      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.2) { g.mode = "drag"; try { book.setPointerCapture(e.pointerId); } catch (_) {} }
+      else if (Math.abs(dy) > 10) { g.mode = "scroll"; return; }
+      else return;
+    }
+    if (g.mode !== "drag") return;
+    const now = performance.now();
+    g.v = (e.clientX - g.lx) / Math.max(1, now - g.lt); g.lx = e.clientX; g.lt = now;
+    const R = book.clientWidth - 22;
+    let T = null, deg = 0, p = 0;
+    if (dx > 0 && idx < N - 1) { T = idx; p = clamp(dx / R, 0, 1); deg = Math.acos(1 - p) * 180 / Math.PI; }
+    else if (dx < 0 && idx > 0) { T = idx - 1; p = clamp(-dx / R, 0, 1); deg = Math.acos(p) * 180 / Math.PI; }
+    if (g.T !== null && g.T !== T) settle(false);
+    g.T = T; g.p = p; g.dir = T === null ? 0 : (T === idx ? 1 : -1);
+    if (T !== null) pose(T, deg, 0);
+  });
+  function endDrag(e){
+    if (!g || e.pointerId !== g.id) return;
+    const s = g; g = null;
+    if (s.mode !== "drag") return;
+    suppress = true; setTimeout(() => suppress = false, 80);
+    if (s.T === null) { settle(false); return; }
+    const fast = Math.abs(s.v) > 0.45 && Math.sign(s.v) === (s.dir > 0 ? 1 : -1);
+    const commit = s.p > 0.3 || fast;
+    const deg = s.dir > 0 ? Math.acos(1 - s.p) * 180 / Math.PI : Math.acos(s.p) * 180 / Math.PI;
+    busy = true;
+    if (s.dir > 0) {
+      const dur = commit ? 180 + 300 * (90 - deg) / 90 : 180 + 200 * deg / 90;
+      pose(s.T, commit ? 90 : 0, reduce ? 0 : dur);
+      setTimeout(() => { if (commit) idx = s.T + 1; settle(commit); busy = false; }, (reduce ? 0 : dur) + 30);
+    } else {
+      const dur = commit ? 180 + 300 * deg / 90 : 180 + 200 * (90 - deg) / 90;
+      pose(s.T, commit ? 0 : 90, reduce ? 0 : dur);
+      setTimeout(() => { if (commit) idx = s.T; settle(commit); busy = false; }, (reduce ? 0 : dur) + 30);
+    }
+  }
+  book.addEventListener("pointerup", endDrag);
+  book.addEventListener("pointercancel", endDrag);
+  book.addEventListener("click", e => { if (suppress) { e.stopPropagation(); e.preventDefault(); } }, true);
+
+  /* أزرار وتنقل */
+  document.addEventListener("click", e => {
+    const nx = e.target.closest("[data-next]"), gt = e.target.closest("[data-goto]");
+    if (gt) { $("#sheet").hidden = true; goTo(+gt.dataset.goto); return; }
+    if (nx) { step(1); return; }
+  });
+  nextBtn.addEventListener("click", () => step(1));
+  prevBtn.addEventListener("click", () => step(-1));
+  countBtn.addEventListener("click", () => { $("#sheet").hidden = false; const c = $("#toc [aria-current='true']"); if (c) c.focus(); });
+  $("#sheet").addEventListener("click", e => { if (e.target.id === "sheet") $("#sheet").hidden = true; });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { $("#sheet").hidden = true; return; }
+    if (!$("#sheet").hidden) return;
+    if (e.key === "ArrowLeft") step(1);
+    else if (e.key === "ArrowRight") step(-1);
+  });
+
+  /* رسالة قصيرة */
+  let tt;
+  function toast(msg){ const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => t.hidden = true, 2600); }
+
+  /* عدّاد الأرقام: بيشتغل لما الصفحة تفتح */
+  function countUp(leaf){
+    leaf.querySelectorAll(".num:not([data-done])").forEach(el => {
+      el.dataset.done = "1";
+      const to = +el.dataset.to, suf = el.dataset.suffix;
+      if (reduce) return;
+      const t0 = performance.now(), d = 1400;
+      const tick = t => { const k = Math.min(1, (t - t0) / d);
+        el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + suf; if (k < 1) requestAnimationFrame(tick); };
+      el.textContent = "0" + suf; requestAnimationFrame(tick);
+    });
+  }
+
+  /* الكروت اللي بتتقلب بالضغط */
+  document.querySelectorAll("[data-deck]").forEach(d => {
+    const cards = [...d.querySelectorAll(".dcard")], n = cards.length, cnt = $(".deck-count", d), rots = [-1.5, 3, -4, 2.5, -3];
+    let top = 0, lock = false;
+    const layout = () => {
+      cards.forEach((c, i) => {
+        const p = (i - top + n) % n;
+        c.style.zIndex = n - p; c.style.opacity = p > 2 ? 0 : 1;
+        c.style.transform = `translate(${p * -8}px,${p * -8}px) rotate(${rots[p % 5]}deg) scale(${1 - p * 0.045})`;
+        c.tabIndex = p === 0 ? 0 : -1; c.setAttribute("aria-hidden", p === 0 ? "false" : "true");
+      });
+      cnt.textContent = (top + 1) + " / " + n;
+    };
+    layout();
+    d.addEventListener("click", e => {
+      const c = e.target.closest(".dcard");
+      if (!c || lock || n < 2 || cards[top] !== c) return;
+      lock = true;
+      c.style.transform = "translate(-140%,-6%) rotate(-24deg)"; c.style.opacity = 0;
+      if (navigator.vibrate && !reduce) navigator.vibrate(8);
+      setTimeout(() => { c.style.transition = "none"; top = (top + 1) % n; layout(); void c.offsetWidth; c.style.transition = ""; lock = false; }, reduce ? 0 : 430);
+    });
+  });
+
+  /* مشاركة */
+  const sh = $("#share");
+  if (sh) sh.addEventListener("click", async () => {
+    try { if (navigator.share) await navigator.share({ title: document.title, url: location.href.split("#")[0] });
+      else { await navigator.clipboard.writeText(location.href.split("#")[0]); sh.textContent = "تم نسخ اللينك"; } } catch (_) {}
+  });
+
+  /* البداية (ولو اللينك فيه #p5 يفتح على الصفحة دي) */
+  document.querySelectorAll(".num").forEach(n => { if (!reduce) n.textContent = "0" + n.dataset.suffix; });
+  const m = location.hash.match(/^#p(\d+)$/);
+  if (m) idx = clamp(+m[1] - 1, 0, N - 1);
+  settle(false);
+})();
+</script>
+</body>
+</html>
